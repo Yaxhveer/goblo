@@ -1,0 +1,11 @@
+port: 3330
+# strategy: random, least-connection, round-robin(default)
+strategy: random 
+backends:
+  - "http://localhost:3331"
+  - "http://localhost:3332"
+  - "http://localhost:3333"
+  - "http://localhost:3334"
+  - "http://localhost:3335"
+  - "http://localhost:3336"
+  - "http://localhost:3337"

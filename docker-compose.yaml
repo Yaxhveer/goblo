@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  lb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3330:3330
+
+  server:
+    build:
+      context: ./test
+      dockerfile: Dockerfile
+    ports:
+      - 3331:3331
+      - 3332:3332
+      - 3333:3333
+      - 3334:3334
+      - 3335:3335
+      - 3336:3336
+      - 3337:3337
