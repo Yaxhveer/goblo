@@ -25,7 +25,7 @@ go run test/main.go
 
 - Run the application
 ```
-go run main.go
+go run .
 ```
 
 Now, one the access the http://localhost:3330 to test the load balancer.
@@ -36,3 +36,6 @@ You can also modify the `config.yaml` file.
 ```
 docker compose up
 ```
+
+### Reference
+- https://medium.com/@leonardo5621_66451/building-a-load-balancer-in-go-1c68131dc0ef

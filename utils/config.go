@@ -28,32 +28,28 @@ func GetLBStrategy(strategy string) LBStrategy {
 }
 
 type Config struct {
-	Port            int      `json:"port" yaml:"port"`
-	Backends        []string `json:"backends" yaml:"backends"`
-	Strategy        string   `json:"strategy" yaml:"strategy"`
+	Port     int      `json:"port" yaml:"port"`
+	Backends []string `json:"backends" yaml:"backends"`
+	Strategy string   `json:"strategy" yaml:"strategy"`
 }
 
-const MAX_LB_ATTEMPTS int = 3
-
-func GetLBConfig(logger *zap.Logger) (*Config, error) {
+func GetLBConfig(configFileName string, logger *zap.Logger) (*Config, error) {
 	var config Config
-	configFile, err := os.ReadFile("config.yaml")
-	if err == os.ErrNotExist {
-		logger.Warn("config file not found")
+	configFile, err := os.ReadFile(configFileName)
+	if err != nil {
+		logger.Warn("config file error, starting ", zap.Error(err))
 		return &Config{
-			Port: 3333,
+			Port:     3330,
 			Strategy: "least-connection",
 			Backends: []string{
+				"http://localhost:3331",
+				"http://localhost:3332",
+				"http://localhost:3333",
 				"http://localhost:3334",
-				"http://localhost:3335",
-				"http://localhost:3336",
-				"http://localhost:3337",
 			},
 		}, nil
 	}
-	if err != nil {
-		return nil, err
-	}
+
 	err = yaml.Unmarshal(configFile, &config)
 	if err != nil {
 		return nil, err

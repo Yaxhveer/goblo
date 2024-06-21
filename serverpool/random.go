@@ -2,20 +2,16 @@ package serverpool
 
 import (
 	"math/rand"
-	"sync"
 
 	"github.com/Yaxhveer/golbo/backend"
 )
 
 type randomServerPool struct {
 	backends []backend.Backend
-	mu       sync.RWMutex
 }
 
 func (s *randomServerPool) GetNextValidPeer() backend.Backend {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	for i:=0; i<5; i++ {
+	for i:=0; i<3; i++ {
 		rnd := rand.Intn(s.GetServerPoolSize())
 		if s.backends[rnd].IsActive() {
 			return s.backends[rnd]

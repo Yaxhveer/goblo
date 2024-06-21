@@ -38,7 +38,9 @@ func HealthCheck(ctx context.Context, s serverpool.ServerPool, logger *zap.Logge
 			logger.Info("Gracefully shutting down health check")
 			return
 		case active := <-ActiveChannel:
-			b.SetActive(active)
+			if b.IsActive() != active {
+				b.SetActive(active)
+			}
 			if !active {
 				status = "down"
 			}

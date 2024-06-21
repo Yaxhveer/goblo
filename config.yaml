@@ -1,6 +1,6 @@
-port: 3330
+port: ":3330"
 # strategy: random, least-connection, round-robin(default)
-strategy: random 
+strategy: least-connection 
 backends:
   - "http://localhost:3331"
   - "http://localhost:3332"
@@ -9,3 +9,10 @@ backends:
   - "http://localhost:3335"
   - "http://localhost:3336"
   - "http://localhost:3337"
+  # - "http://server:3331"
+  # - "http://server:3332"
+  # - "http://server:3333"
+  # - "http://server:3334"
+  # - "http://server:3335"
+  # - "http://server:3336"
+  # - "http://server:3337"

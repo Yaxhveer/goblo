@@ -1,20 +1,15 @@
 package serverpool
 
 import (
-	"sync"
-
 	"github.com/Yaxhveer/golbo/backend"
 )
 
 type roundRobinServerPool struct {
 	backends []backend.Backend
-	mu       sync.RWMutex
 	current  int
 }
 
 func (s *roundRobinServerPool) rotate() backend.Backend {
-	s.mu.Lock()
-	defer s.mu.Unlock()
 	backend := s.backends[s.current]
 	s.current = (s.current + 1) % s.GetServerPoolSize()
 	return backend

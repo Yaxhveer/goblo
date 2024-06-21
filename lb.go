@@ -1,4 +1,4 @@
-package loadbalancer
+package main
 
 import (
 	"net/http"

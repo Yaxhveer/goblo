@@ -14,20 +14,20 @@ type ServerPool interface {
 	GetServerPoolSize() int
 }
 
-func NewServerPool(strategy utils.LBStrategy) (ServerPool, error) {
+func NewServerPool(strategy utils.LBStrategy, backends []backend.Backend) (ServerPool, error) {
 	switch strategy {
 	case utils.RoundRobin:
 		return &roundRobinServerPool{
-			backends: make([]backend.Backend, 0),
+			backends: backends,
 			current:  0,
 		}, nil
 	case utils.LeastConnected:
 		return &lcServerPool{
-			backends: make([]backend.Backend, 0),
+			backends: backends,
 		}, nil
 	case utils.Random:
 		return &randomServerPool{
-			backends: make([]backend.Backend, 0),
+			backends: backends,
 		}, nil
 	default:
 		return nil, fmt.Errorf("Invalid strategy")
